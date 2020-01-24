@@ -1,0 +1,25 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "com.algonquin.chet0007.playr"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.algonquin.chet0007.playr"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.algonquin.chet0007.playr"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.algonquin.chet0007.playr"
+    }
+  }
+}

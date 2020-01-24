@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <main>
+            <div class="app">
+
+                <!-- page1 -->
+                <div class="page active" id="home">
+                    <h1>Anatolie's Playr</h1>
+                    <div class="container">
+                        <ul style="list-style: none" id="songs">
+
+                        </ul>
+                        <!-- this is where list of songs goes -->
+                    </div>
+                    <ul style="list-style: none">
+                    <li><a href="#" style="list-style: none" data-target="currentPlaying" class="menu-btn" id="menu-Btn">
+                            &#8801; Player
+                        </a></li></ul>
+                    <!-- <p><button id="play-btn">&#9654;</button></p>
+                    <p><button id="pause-btn">&#10074;&#10074;</button></p> -->
+                </div>
+
+                <!-- page2 -->
+                <div class="page" id="currentPlaying">
+                    <ul style="list-style: none">
+                    <li><a href="#" style="list-style: none" data-target="home" class="menu-btn" id="menu-Btn">
+                        &#8801; Song List
+                    </a></li></ul>
+
+                    <div id ="displayInfo">
+                        <!-- artist name / album / etc.. -->
+                    </div>
+                    <div id ="imgHolder"> <svg width="70%" height="100%">
+                        <rect width="100%" height="100%" fill="black" />
+                        <circle cx="100%" cy="100%" r="150" fill="white" stroke="black" />
+                        <polygon points="120,0 240,225 0,225" fill="green"/>
+                        <text x="20" y="100" font-family="Verdana" font-size="55"
+                              fill="white" stroke="black" stroke-width="2">
+                                Playing 
+                        </text>
+                      </svg></div>
+                    <div id ="durationInfo">
+                        <ul id="songDuration"></ul>
+                        <!-- 00:00 ------------------- 00:00 -->
+                    </div>
+                    <div class="controlButtons">
+                        <p><button id="rew-btn">&#x23ee;</button></p>
+                        <p><button id="play-btn">&#9654;</button></p>
+                        <p><button id="pause-btn">&#10074;&#10074;</button></p>
+                        <p><button id="ff-btn">&#x23ed;</button></p>
+                     <!-- <div class="volumeButtons">
+                        <p><button id="up-btn">Vol+</button></p>
+                        <p><button id="down-btn">Vol-</button></p>
+                    </div> -->
+                    </div>
+                </div>
+            </div class="app">
+        </main>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

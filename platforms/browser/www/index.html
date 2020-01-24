@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <main>
+            <div class="app">
+
+                <!-- page1 -->
+                <div class="page active" id="home">
+                    <h1>Anatolie's Playr</h1>
+                    <div class="grid-container">
+                        <ul  id="songs">
+
+                        </ul>
+                        <!-- this is where list of songs goes -->
+                    </div>
+                    <li><a href="#" data-target="currentPlaying" class="menu-btn" id="menu-Btn">
+                            &#8801;
+                        </a></li>
+                    <p><button id="play-btn">&#9654;</button></p>
+                    <p><button id="pause-btn">&#10074;&#10074;</button></p>
+                </div>
+
+                <!-- page2 -->
+                <div class="page" id="currentPlaying">
+                    <li><a href="#" data-target="home" class="menu-btn" id="menu-Btn">
+                        &#8801;
+                    </a></li>
+
+                    <div id ="displayInfo">
+                        <!-- artist name / album / etc.. -->
+                    </div>
+                    <div id ="songDuration">
+                        <!-- 00:00 ------------------- 00:00 -->
+                    </div>
+                    <div class="controlButtons">
+                        <p><button id="rew-btn">&#x23ee;</button></p>
+                        <p><button id="play-btn">&#9654;</button></p>
+                        <p><button id="pause-btn">&#10074;&#10074;</button></p>
+                        <p><button id="ff-btn">&#x23ed;</button></p>
+                     <!-- <div class="volumeButtons">
+                        <p><button id="up-btn">Vol+</button></p>
+                        <p><button id="down-btn">Vol-</button></p>
+                    </div> -->
+                    </div>
+                </div>
+            </div class="app">
+        </main>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
