@@ -110,7 +110,8 @@ var app = {
         songDur = document.getElementById("songDuration");//durations
         let songLngth = document.createElement('p');
         songDur.appendChild(songLngth);
-        songLngth.innerText = element.duration;
+        other = "00:00 |~|_________________________|~| ";
+        songLngth.innerText = other + element.duration;
     },
 
     init: function() { 
@@ -151,7 +152,8 @@ var app = {
 
     ready: function(ev) {
         ev.preventDefault();
-        let wasClicked = ev.target; 
+        let wasClicked = ev.target; //Wrong target?
+        console.log("wasClicked is", wasClicked);
         let li = wasClicked.closest('[data-id]');
         let id = li.getAttribute('data-id');
         app.currentTrack = id;
@@ -165,7 +167,7 @@ var app = {
         console.log(src);
         app.media = new Media(src, app.ftw, app.wtf, app.statusChange);  //play audio with plugin
         app.play();
-        app.timer();  
+        // app.timer();  
         // app.timerR();
     },
 
@@ -187,13 +189,14 @@ var app = {
             // songDrtion.setAttribute('data-id', "timeR");
             // songDrtion.setAttribute('data-class', "timER");
             // songDur.appendChild(songDrtion);
-            songDur.innerText = output;
+            other = "00:00 ~ ||___________________________________|| ~  ";
+            songDur.innerText = other + output;
     },
 
-    timerStop: function(ev){
-        let removeTimr = setInterval(app.showTime, 1000000);
-    },
-    // removeTimer: function(ev){        
+    // timerStop: function(ev){
+    //     let removeTimr = setInterval(app.showTime, 1000000);
+    // },
+    // // removeTimer: function(ev){        
     //     document.getElementById('songDuration').innerHTML= "";
     // },
 
@@ -222,6 +225,15 @@ var app = {
         console.error(err);
     },
     statusChange: function(status){
+        // 
+        if(app.status[status] === "MEDIA_STARTING"){
+            let timy = setInterval(app.showTime, 1000);
+            // app.timer();
+        }else { //if(app.status[status] === "MEDIA_PAUSED")
+            clearInterval(app.timy);
+        }
+        
+
         console.log('media status is now ' + app.status[status] );
     },
 

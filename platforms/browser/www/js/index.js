@@ -3,7 +3,7 @@ var app = {
     active:"search",
     media:null,
     show: new Event('show'),//for Spa
-    currentTrack: 0,
+    currentTrack: 1,
     pages: [],
     track: [
     {
@@ -12,6 +12,7 @@ var app = {
         album: "Enter the Wu-Tang",
         title: 'C.R.E.A.M',
         duration: "4:06",
+        seconds: 246,
         volume:0.5,
         src: 'file:///android_asset/www/media/cream.mp3'
     },
@@ -21,6 +22,7 @@ var app = {
         album: "Single",
         title: "Programs",
         duration: "3:10",
+        seconds: 190,
         volume:0.5,
         src: 'file:///android_asset/www/media/programs.mp3'
     },
@@ -30,6 +32,7 @@ var app = {
         album: "Bob Crosby & The Bob Cats",
         title: "Dear Hearts And Gentle People",
         duration: "2:33",
+        seconds: 153,
         volume:0.5,
         src: 'file:///android_asset/www/media/DearHeartsAndGentlePeople.mp3'
     },
@@ -39,6 +42,7 @@ var app = {
         album: "Slippery When Wet",
         title: "Wanted Dead Or Alive",
         duration: "5:07",
+        seconds: 307,
         volume:0.5,
         src: 'file:///android_asset/www/media/WantedDeadOrAlive.mp3'
     },
@@ -48,6 +52,7 @@ var app = {
         album: "Friday",
         title: "Keep Their Heads Ringin",
         duration: "3:30",
+        seconds: 210,
         volume:0.5,
         src: 'file:///android_asset/www/media/KeepTheirHeadsRingin.mp3'
     }],
@@ -66,7 +71,7 @@ var app = {
         '4':'MEDIA_ERR_NONE_SUPPORTED'
     },
 
-    createElem: ()=>{
+    createElem: ()=>{     //creates all the elemnts on first page
         printSong = document.getElementById("songs");
         incrementVar = 0;
         app.track.forEach(element => {
@@ -74,6 +79,7 @@ var app = {
             printSong.appendChild(printLi);
             printLi.setAttribute('data-id', incrementVar);
             printLi.setAttribute('data-href', "#");
+            printLi.setAttribute('data-class', "listItms");
             incrementVar++;
             console.log(printLi);
             console.log(element);
@@ -95,30 +101,17 @@ var app = {
 
     songInformation: function(element){
         songInfo = document.getElementById("displayInfo"); 
-
         let artistInfo = document.createElement('h2'); //artist
         songInfo.appendChild(artistInfo);
         artistInfo.innerText = element.artist;
-
         let songName = document.createElement('h3');//song
         songInfo.appendChild(songName);
         songName.innerText = element.title;
-
         songDur = document.getElementById("songDuration");//durations
-
-        // app.media.getCurrentPosition((pos)=>{
-        //     let dur = app.media.getDuration();
-        //     console.log('current position', pos);
-        //     console.log('duration', dur);
-        // });
-    
-        let songDrtion = document.createElement('p');
-        songDur.appendChild(songDrtion);
-      // songDrtion.innerText = dur;
-
         let songLngth = document.createElement('p');
         songDur.appendChild(songLngth);
-        songLngth.innerText = element.duration;
+        other = "00:00 |~|_________________________|~| ";
+        songLngth.innerText = other + element.duration;
     },
 
     init: function() { 
@@ -133,7 +126,7 @@ var app = {
             link.addEventListener('click',function(ev){
                 app.nav(ev);
                 document.getElementById('displayInfo').textContent="";
-                document.getElementById('songDuration').textContent="";
+                document.getElementById('songDuration').innerText="";
             } );
         });
         history.replaceState({}, 'Home', '#home');
@@ -159,7 +152,8 @@ var app = {
 
     ready: function(ev) {
         ev.preventDefault();
-        let wasClicked = ev.target; 
+        let wasClicked = ev.target; //Wrong target?
+        console.log("wasClicked is", wasClicked);
         let li = wasClicked.closest('[data-id]');
         let id = li.getAttribute('data-id');
         app.currentTrack = id;
@@ -173,13 +167,42 @@ var app = {
         console.log(src);
         app.media = new Media(src, app.ftw, app.wtf, app.statusChange);  //play audio with plugin
         app.play();
+        // app.timer();  
+        // app.timerR();
     },
+
+    isPaused : false,
+
+    timer: function(ev){
+            let timy = setInterval(app.showTime, 1000);
+        // app.timerR();
+    },
+    showTime: function(ev){
+            let playSec = app.track[app.currentTrack-1].seconds-- +0.5;
+            let hours = Math.floor(playSec / 3600);
+            let mins = Math.floor(playSec / 60);
+            let secs = Math.floor(playSec % 60);
+            let output = mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
+            console.log(output);
+            songDur = document.getElementById("songDuration");//durations
+            // let songDrtion = document.createElement('p');
+            // songDrtion.setAttribute('data-id', "timeR");
+            // songDrtion.setAttribute('data-class', "timER");
+            // songDur.appendChild(songDrtion);
+            other = "00:00 ~ ||___________________________________|| ~  ";
+            songDur.innerText = other + output;
+    },
+
+    // timerStop: function(ev){
+    //     let removeTimr = setInterval(app.showTime, 1000000);
+    // },
+    // // removeTimer: function(ev){        
+    //     document.getElementById('songDuration').innerHTML= "";
+    // },
 
     ftw: function(){
         console.log('success doing something');
-        app.next();  
-        let dur = app.media.getDuration();
-        console.log('duration', dur);
+        app.next();
     },
     next: ()=>{
         app.currentTrack++;
@@ -202,7 +225,12 @@ var app = {
         console.error(err);
     },
     statusChange: function(status){
-        console.log('media status is now ' + app.status[status] ); 
+        if(app.status[status] === "MEDIA_STARTING"){
+       
+            app.timer();
+        }
+        let timy = setInterval(app.showTime, 1000);
+        console.log('media status is now ' + app.status[status] );
     },
 
     addListeners: function(){
@@ -230,9 +258,15 @@ var app = {
     // media controls
     play: function(){
         app.media.play();
+        app.isPaused == false;
     },
-    pause: function(){
+    pause: function(ev){
         app.media.pause();
+        app.isPaused == true;
+        console.log(app.isPaused)
+        // app.isPaused = true;
+        
+        // app.timerStop();
     },
     ff: function(){
         app.media.getCurrentPosition((pos)=>{

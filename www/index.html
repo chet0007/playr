@@ -30,35 +30,37 @@
                         </ul>
                         <!-- this is where list of songs goes -->
                     </div>
-                    <ul style="list-style: none">
-                    <li><a href="#" style="list-style: none" data-target="currentPlaying" class="menu-btn" id="menu-Btn">
+                    <h class="uL">
+                        <h2><a href="#" style="list-style: none" data-target="currentPlaying" class="menu-btn" id="menu-Btn">
                             &#8801; Player
-                        </a></li></ul>
+                        </a></h2>
+                    </h>
                     <!-- <p><button id="play-btn">&#9654;</button></p>
                     <p><button id="pause-btn">&#10074;&#10074;</button></p> -->
                 </div>
 
                 <!-- page2 -->
                 <div class="page" id="currentPlaying">
-                    <ul style="list-style: none">
-                    <li><a href="#" style="list-style: none" data-target="home" class="menu-btn" id="menu-Btn">
+                    <h class="uL">
+                        <h2><a href="#" style="list-style: none" data-target="home" class="menu-btn" id="menu-Btn">
                         &#8801; Song List
-                    </a></li></ul>
+                        </a></h2>
+                    </h>
 
                     <div id ="displayInfo">
                         <!-- artist name / album / etc.. -->
                     </div>
-                    <div id ="imgHolder"> <svg width="70%" height="100%">
+                    <div id ="imgHolder"> 
+                        <svg width="70%" height="100%">
                         <rect width="100%" height="100%" fill="black" />
                         <circle cx="100%" cy="100%" r="150" fill="white" stroke="black" />
                         <polygon points="120,0 240,225 0,225" fill="green"/>
                         <text x="20" y="100" font-family="Verdana" font-size="55"
-                              fill="white" stroke="black" stroke-width="2">
-                                Playing 
-                        </text>
-                      </svg></div>
+                                fill="white" stroke="black" stroke-width="2">
+                                Playing </text></svg>
+                    </div>
                     <div id ="durationInfo">
-                        <ul id="songDuration"></ul>
+                        <p id="songDuration"></p>
                         <!-- 00:00 ------------------- 00:00 -->
                     </div>
                     <div class="controlButtons">
