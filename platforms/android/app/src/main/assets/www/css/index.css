@@ -117,8 +117,8 @@ img {
     
 }
 li {
-    /* padding: 2px; */
-    /* margin: 2px; */
+    padding: 2px;
+    margin: 2px;
     border: 1px solid hsl(220deg, 90%, 10%);
     border-radius: 6px;
     background-color: hsl(220deg, 30%, 90%);
